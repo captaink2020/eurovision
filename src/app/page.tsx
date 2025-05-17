@@ -87,11 +87,11 @@ const countryFlags: Record<string, string> = {
 const EurovisionScoreApp = () => {
     const [songs, setSongs] = useState<SongEntry[]>(initialSongs);
     const [rankedSongs, setRankedSongs] = useState<SongEntry[]>([]);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars    
-const [activeTab, setActiveTab] = useState('input');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars    
+    const [activeTab, setActiveTab] = useState('input');
 
     // Function to calculate total score
-      const calculateTotalScore = useCallback((song: SongEntry) => {
+    const calculateTotalScore = useCallback((song: SongEntry) => {
         return song.emosh + song.banger + song.bonkers + song.pipes;
     }, []);
 
@@ -132,7 +132,7 @@ const [activeTab, setActiveTab] = useState('input');
         );
     }, [calculateTotalScore]);
 
-      // Determine ranks when songs or totalScores change
+    // Determine ranks when songs or totalScores change
     useEffect(() => {
         determineRanks();
     }, [determineRanks]);
@@ -155,14 +155,14 @@ const [activeTab, setActiveTab] = useState('input');
                     <TabsTrigger
                         value="input"
                         className="text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-white
-                                     data-[state=inactive]:text-gray-400 data-[state=inactive]:hover:text-gray-300"
+                                      data-[state=inactive]:text-gray-400 data-[state=inactive]:hover:text-gray-300"
                     >
                         Input Scores
                     </TabsTrigger>
                     <TabsTrigger
                         value="ranking"
                         className="text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-white
-                                     data-[state=inactive]:text-gray-400 data-[state=inactive]:hover:text-gray-300"
+                                      data-[state=inactive]:text-gray-400 data-[state=inactive]:hover:text-gray-300"
                     >
                         View Ranking
                     </TabsTrigger>
@@ -191,7 +191,7 @@ const [activeTab, setActiveTab] = useState('input');
                                             type="number"
                                             min="0"
                                             max="10"
-                                            value={song.emosh}
+                                            value={song.emosh === 0 ? '' : song.emosh} // Use empty string if 0
                                             onChange={(e) =>
                                                 updateSongScore(song.country, 'emosh', parseInt(e.target.value, 10) || 0)
                                             }
@@ -206,7 +206,7 @@ const [activeTab, setActiveTab] = useState('input');
                                             type="number"
                                             min="0"
                                             max="10"
-                                            value={song.banger}
+                                            value={song.banger === 0 ? '' : song.banger}  // Use empty string if 0
                                             onChange={(e) =>
                                                 updateSongScore(song.country, 'banger', parseInt(e.target.value, 10) || 0)
                                             }
@@ -221,7 +221,7 @@ const [activeTab, setActiveTab] = useState('input');
                                             type="number"
                                             min="0"
                                             max="10"
-                                            value={song.bonkers}
+                                            value={song.bonkers === 0 ? '' : song.bonkers}  // Use empty string if 0
                                             onChange={(e) =>
                                                 updateSongScore(song.country, 'bonkers', parseInt(e.target.value, 10) || 0)
                                             }
@@ -236,7 +236,7 @@ const [activeTab, setActiveTab] = useState('input');
                                             type="number"
                                             min="0"
                                             max="10"
-                                            value={song.pipes}
+                                            value={song.pipes === 0 ? '' : song.pipes} // Use empty string if 0
                                             onChange={(e) =>
                                                 updateSongScore(song.country, 'pipes', parseInt(e.target.value, 10) || 0)
                                             }
@@ -250,7 +250,7 @@ const [activeTab, setActiveTab] = useState('input');
                     </div>
                 </TabsContent>
                 <TabsContent value="ranking">
-                     <div className="rounded-md border border-gray-800 overflow-x-auto mt-0">
+                    <div className="rounded-md border border-gray-800 overflow-x-auto mt-0">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -263,7 +263,7 @@ const [activeTab, setActiveTab] = useState('input');
                             </TableHeader>
                             <TableBody>
                                 {rankedSongs.map((song) => (
-                                     <TableRow key={song.country} className={cn(
+                                    <TableRow key={song.country} className={cn(
                                         "hover:bg-gray-800/50 transition-colors",
                                         song.rank <= 3 ? "bg-gradient-to-r from-yellow-500/10 to-transparent" : "", // Highlight top 3
                                         song.rank === 1 ? "font-bold" : ""
@@ -293,7 +293,7 @@ const [activeTab, setActiveTab] = useState('input');
                 <Button
                     onClick={handleResetScores}
                     className="bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300
-                             border border-red-500/30 transition-all duration-200"
+                              border border-red-500/30 transition-all duration-200"
                 >
                     Reset All Scores
                 </Button>
