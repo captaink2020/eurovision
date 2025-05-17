@@ -87,7 +87,8 @@ const countryFlags: Record<string, string> = {
 const EurovisionScoreApp = () => {
     const [songs, setSongs] = useState<SongEntry[]>(initialSongs);
     const [rankedSongs, setRankedSongs] = useState<SongEntry[]>([]);
-    const [activeTab, setActiveTab] = useState('input');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars    
+const [activeTab, setActiveTab] = useState('input');
 
     // Function to calculate total score
       const calculateTotalScore = useCallback((song: SongEntry) => {
